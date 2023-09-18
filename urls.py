@@ -1,27 +1,21 @@
 from django.urls import path
-from . import apps
-from .views.regular_views import DashboardView
-from .views.segmentation_views import SegmentationListView, SegmentationCreateView
-from .views.position_views import PositionListView, PositionCreateView
-from .views.user_segmentation_views import UserSegmentationListView, UserSegmentationCreateView, UserSegmentationUpdateView, UserSegmentationDeleteView
-from .views.user_position_views import UserPositionListView, UserPositionCreateView, UserPositionUpdateView, UserPositionDeleteView
-from .views.user_views import UserCreateView
-
-app_name = apps.LoanUsersConfig.name
+from . import views
 
 urlpatterns = [
-    path('', DashboardView.as_view(), name='dashboard'),
-    path('segmentations', SegmentationListView.as_view(), name='segmentations'),
-    path('segmentations/create', SegmentationCreateView.as_view(), name='create-segmentation'),
-    path('positions', PositionListView.as_view(), name='positions'),
-    path('positions/create', PositionCreateView.as_view(), name='create-position'),
-    path('user-segmentations', UserSegmentationListView.as_view(), name='user-segmentations'),
-    path('user-segmentations/create', UserSegmentationCreateView.as_view(), name='create-user-segmentation'),
-    path('user-segmentations/<slug:slug>/update', UserSegmentationUpdateView.as_view(), name='update-user-segmentation'),
-    path('user-segmentations/<slug:slug>/delete', UserSegmentationDeleteView.as_view(), name='delete-user-segmentation'),
-    path('user-positions', UserPositionListView.as_view(), name='user-positions'),
-    path('user-positions/create', UserPositionCreateView.as_view(), name='create-user-position'),
-    path('user-positions/<int:id>/update', UserPositionUpdateView.as_view(), name='update-user-position'),
-    path('user-positions/<slug:slug>/delete', UserPositionDeleteView.as_view(), name='delete-user-position'),
-    path('<slug:slug>/create-user', UserCreateView.as_view(), name='create-user'),
+    path('', views.home, name='home'),
+    path('dashboard', views.dashboard, name='dashboard'),
+    path('positions', views.position, name='positions'),
+    path('positions/create', views.create_position, name='create-position'),
+    path('positions/<int:pk>/update', views.update_position, name='update-position'),
+    path('segmentations', views.segmentation, name='segmentations'),
+    path('segmentations/create', views.create_segmentation, name='create-segmentation'),
+    path('segmentations/<int:pk>/update', views.update_segmentation, name='update-segmentation'),
+    path('user-positions', views.user_position, name='user-positions'),
+    path('user-positions/<int:pk>', views.detail_user_position, name='detail-user-position'),
+    path('user-positions/<int:pk>/update', views.update_user_position, name='update-user-position'),
+    path('user-segmentations', views.user_segmentation, name='user-segmentations'),
+    path('user-segmentations/<int:pk>', views.detail_user_segmentation, name='detail-user-segmentation'),
+    path('user-segmentations/<int:pk>/update', views.update_user_segmentation, name='update-user-segmentation'),
+    path('<slug:slug>/create-user', views.create_user, name='create-user'),
+    path('<slug:slug>/<int:pk>/delete-user', views.delete_user, name='delete-user'),
 ]

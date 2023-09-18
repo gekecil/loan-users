@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import PrefixUrl
+from .models import NavLink
 
-admin.site.register(PrefixUrl)
+admin.site.register(NavLink)
